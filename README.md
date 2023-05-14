@@ -106,4 +106,4 @@ APA
 [4] https://github.com/JuliaStats/Distributions.jl
 
 # Acknowledgements 
-This project was originally inspired from a Google summer of code project. We would like to sincerely thank Vaibhav Dixit of the Julia team for all the guidance in this project. 
+This project was inspired by an issue in the [GlobalSensitivity.jl](https://github.com/SciML/GlobalSensitivity.jl/issues/98) repo. We would like to sincerely thank Vaibhav Dixit of the Julia team for all the guidance in this project. 
