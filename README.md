@@ -7,14 +7,14 @@ Devang Sehgal<sup>1</sup> &dagger; and Anurag Vaidya<sup>1</sup> &dagger;
 
 # Introduction
 
-This library implements an optimized serial version and a parallel version of Shapley effects introduced by [1]. Unlike other state of the art sensitivity analysis methods, like Sobol indices, the Shapley effects algorithm can take into account correlations between different input features. Our algorithm requires the user to define a numerical or probabilistic function, the marginal distirbution of each of the input features, a Copula to denote how the different features interact, and give the number of boot-strapped to be used to calculate the Shapley effects for each feature. The algorithm returns Shapley effects such that they add upto 1, which means that each effect can be interpreted as what percentage of variance is accounted for by that specific feature. This implementation of Shapley effects is inspired from the R code and pseudo-code provided by Song et al. [1] and Shapley effects implementation in Python [2]. Our implementation havily uses the Copulas.jl [3] and Distributions.jl [4]
+This library implements an optimized serial version and a parallel version of Shapley effects introduced by [1]. Unlike other state of the art sensitivity analysis methods, like Sobol indices, the Shapley effects algorithm can take into account correlations between different input features. Our algorithm requires the user to define a numerical or probabilistic function, the marginal distirbution of each of the input features, a Copula to denote how the different features interact, and give the number of boot-strapped to be used to calculate the Shapley effects for each feature. The algorithm returns Shapley effects such that they add upto 1, which means that each effect can be interpreted as what percentage of variance is accounted for by that specific feature. This implementation of Shapley effects is inspired from the R code and pseudo-code provided by Song et al. [1] and Shapley effects implementation in Python [2]. Our implementation heavily uses the Copulas.jl [3] and Distributions.jl [4]
 
 # Salient features of our implementation
 Some of the salient features of our algorithm implementationa are: 
 - Serial and parallel optimized code provided in separate files 
-- Compared to the python counterpart of the algorithm written using numpy, the julia version is 8x faster in computation speed
+- Compared to the python counterpart of the algorithm written using numpy, the julia version is 20x faster in computation speed
 - Sample generation and bootstrapping is separated unlike in the original implementation of [1]. This allows modular control over each part of the algorithm 
-- Our implementation can be applied to analytical functions and differential equations, with examples shown in the attached report analyzing the algorithm in detial.
+- Our implementation can be applied to analytical functions and differential equations, with examples shown in the `examples` folder.
 - The algorithm has factorial complexity with respect to the number of features in the function, making it intractable to work with functions with large input features. Thus, we implement another version of the method (random permutation) which samples a user defined number of permutations, making the algorithm tractable for functions with large number of inputs.
 
 # Repo sturcture
@@ -28,7 +28,7 @@ Some of the salient features of our algorithm implementationa are:
 First define the function you want to test. Here we work with the Ishigami fucntion, but this function can be also be a differential equation. 
 
 ```
-using Copulas, Distributions
+using Copulas, Distributions, Combinatorics, LinearAlegbra, Radndom 
 include("path/to/shapley_serial.jl")
 
 function ishi(X)
@@ -106,4 +106,4 @@ APA
 [4] https://github.com/JuliaStats/Distributions.jl
 
 # Acknowledgements 
-This project was originally inspired from a Google summer of code project. We would like to sincerely thank Vaibhav Dixit of the Julia team for all the guidance in this project. 
+This project was inspired by an issue in the [GlobalSensitivity.jl](https://github.com/SciML/GlobalSensitivity.jl/issues/98) repo. We would like to sincerely thank Vaibhav Dixit of the Julia team for all the guidance in this project. 
