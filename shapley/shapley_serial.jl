@@ -184,7 +184,7 @@ end
 
 
 ########### IMPLEMENTATION ####################################################
-function gsa_parallel(f, method::Shapley, input_distribution::SklarDist;batch=false)
+function gsa(f, method::Shapley, input_distribution::SklarDist;batch=false)
 
     # Extract variables from shapley structure
     n_perms = method.n_perms
@@ -213,6 +213,7 @@ function gsa_parallel(f, method::Shapley, input_distribution::SklarDist;batch=fa
         idx_perm_sorted = sortperm(perm) # Sort the variable ids
 
         for j in 1:(dim-1)
+            
             # normal set
             idx_plus = perm[1:j];
             # Complementary set
